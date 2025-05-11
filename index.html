@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ngajak Jalan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #fff6f3;
+      margin: 0;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #e96d6d;
+    }
+    p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    .btn {
+      background-color: pink;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 1.1em;
+      margin: 5px;
+    }
+    .btn:hover {
+      background-color: #ff8f8f;
+    }
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .container {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .container.active {
+      display: flex;
+      opacity: 1;
+    }
+    .envelope {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background: #f4c7c3;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 1s ease;
+    }
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: #f29c9c;
+      clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 0, 0 0);
+      transition: transform 1s ease;
+      z-index: 3;
+    }
+    .paper {
+      position: absolute;
+      top: 80px;
+      left: 10%;
+      width: 80%;
+      height: 180px;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 1s ease, opacity 1s ease;
+      z-index: 2;
+      text-align: center;
+      font-size: 1.2em;
+      overflow-y: scroll;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+      transform-origin: top;
+    }
+    .envelope.open .paper {
+      transform: translateY(-80px);
+      opacity: 1;
+    }
+    .btn-next {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background: #ffb6b6;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: none;
+      transition: background 0.3s ease;
+    }
+    .btn-next:hover {
+      background: #ff9999;
+    }
+    .color-options {
+      margin-top: 20px;
+    }
+    .color-options button {
+      margin: 5px;
+      padding: 10px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .color-options button:hover {
+      background-color: #ff9999;
+    }
+    .btn-red {
+      background-color: #9a9a9a;
+    }
+    .btn-blue {
+      background-color: #448de0;
+    }
+    .btn-green {
+      background-color: #f5d3ac;
+    }
+    .btn-yellow {
+      background-color: #ffffff;
+    }
+    .btn-red:hover {
+      background-color: #767676;
+    }
+    .btn-blue:hover {
+      background-color: #8bbae3;
+    }
+    .btn-green:hover {
+      background-color: #ae7c5f;
+    }
+    .btn-yellow:hover {
+      background-color: #fffcee;
+    }
+
+    /* Paper Style untuk Setiap Slide */
+    #slide1 .paper {
+      background-color: #ffffff; /* Merah Muda untuk Slide 1 */
+    }
+#slide2 .paper {
+  background-color: #c1e1f8;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container active" id="intro">
+    <h1>Hai, sayangggggg</h1>
+    <p>Besok mau main sama aku ga?</p>
+    <div class="btn-container">
+      <button class="btn" id="yesBtn">Iya, Mau!</button>
+      <button class="btn" id="noBtn">Engga Mau</button>
+    </div>
+  </div>
+
+  <!-- Slide 1: Amplop Interaktif -->
+  <div class="container" id="slide1">
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="paper" id="paper">
+        <div class="invitation-text"></div>
+        <h2>Rundown Main Bareng</h2>
+        <ul>
+          <li><strong>13.00:</strong> Berangkat pake 🚗💨</li>
+          <li><strong>14.00:</strong> Nongkrong di belakang museum pendidikan🌳☕</li>
+          <li><strong>16.00:</strong> Otw PlayIt 🎮✨</li>
+          <li><strong>16.30:</strong> Main PS4 🎮👾</li>
+          <li><strong>18.00:</strong> Nonton Film 🍿🎬</li>
+          <li><strong>19.40:</strong> Pulang sambil dengerin lagu favorit 🎧🎶</li>
+        </ul>
+      </div>
+    </div>
+    <button class="btn-next" id="nextBtn">Lanjut ✈️</button>
+  </div>
+
+  <!-- Slide 2: Warna Baju -->
+  <div class="container" id="slide2">
+    <div class="paper" style="opacity: 1; transform: translateY(0); background-color: #fff6f3;">
+      <div class="invitation-text">Pilih warna baju kamu:</div>
+      <div class="color-options">
+        <button class="btn-red" onclick="sendColor('hitam')">hitam</button>
+        <button class="btn-blue" onclick="sendColor('biru')">biru</button>
+        <button class="btn-green" onclick="sendColor('coklat')">coklat</button>
+        <button class="btn-yellow" onclick="sendColor('putih')">putih</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const slide1 = document.getElementById("slide1");
+    const slide2 = document.getElementById("slide2");
+    const nextBtn = document.getElementById("nextBtn");
+    const envelope = document.getElementById("envelope");
+
+    // Button "Iya, Mau!" di halaman pertama
+    yesBtn.addEventListener("click", () => {
+      document.getElementById("intro").classList.remove("active");
+      slide1.classList.add("active");
+    });
+
+    // Button "Engga Mau" di halaman pertama
+    noBtn.addEventListener("click", () => {
+      alert("Mungkin lain kali yaa! 😘");
+    });
+
+    // Amplop interaktif
+    envelope.addEventListener("click", () => {
+      envelope.classList.add("open");
+      setTimeout(() => {
+        nextBtn.style.display = "inline-block";
+      }, 1200);
+    });
+
+    // Tombol lanjut ke slide berikutnya
+    nextBtn.addEventListener("click", () => {
+      slide1.classList.remove("active");
+      slide2.classList.add("active");
+    });
+
+    // Kirim pilihan warna baju ke WhatsApp
+    function sendColor(color) {
+      const message = `Aku pilih warna baju: ${color}.`;
+      const phoneNumber = 'https://wa.me/089637418879?text=' + encodeURIComponent(message); // Ganti nomor WA
+      window.open(phoneNumber, '_blank');
+    }
+  </script>
+</body>
+</html>
